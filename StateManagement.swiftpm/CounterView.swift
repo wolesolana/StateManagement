@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CounterView: View {
     @ObservedObject var state: AppState
-    @State var showModal: AppState?
+    @State var isPrimeModalShown: Bool = false
     
     var body: some View {
         VStack {
@@ -11,15 +11,12 @@ struct CounterView: View {
                     Text("-")
                 }
                 Text("\(self.state.count)")
-                    .foregroundStyle(self.state.count.isPrime ? .green : .red)
                 Button(action: { self.state.count += 1 }) {
                     Text("+")
                 }
             }
-            Button(action: {
-                print("\(state.count.isPrime)")
-            }) {
-                Text("Is this prime?")
+            Button(action: { self.isPrimeModalShown = true}) {
+                Text("Is this \(self.state.count) prime?")
             }
             Button(action: {}) {
                 Text("What is the \(ordinal(self.state.count)) prime?")
@@ -27,11 +24,15 @@ struct CounterView: View {
         }
         .font(.title)
         .navigationBarTitle("Counter demo")
+        .sheet(isPresented: self.$isPrimeModalShown,
+               onDismiss: { self.isPrimeModalShown = false }) {
+            isPrimeView(state: self.state)
+        }
     }
-}
 
-private func ordinal(_ n: Int) -> String {
-    let formatter = NumberFormatter()
-    formatter.numberStyle = .ordinal
-    return formatter.string(for: n) ?? ""
+    private func ordinal(_ n: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .ordinal
+        return formatter.string(for: n) ?? ""
+    }
 }
