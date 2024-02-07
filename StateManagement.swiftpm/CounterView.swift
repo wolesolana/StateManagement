@@ -7,26 +7,26 @@ struct CounterView: View {
     var body: some View {
         VStack {
             HStack {
-                Button(action: { self.state.count -= 1 }) {
+                Button(action: { self.state.number -= 1 }) {
                     Text("-")
                 }
-                Text("\(self.state.count)")
-                Button(action: { self.state.count += 1 }) {
+                Text("\(self.state.number)")
+                Button(action: { self.state.number += 1 }) {
                     Text("+")
                 }
             }
             Button(action: { self.isPrimeModalShown = true}) {
-                Text("Is this \(self.state.count) prime?")
+                Text("Is this \(self.state.number) prime?")
             }
             Button(action: {}) {
-                Text("What is the \(ordinal(self.state.count)) prime?")
+                Text("What is the \(ordinal(self.state.number)) prime?")
             }
         }
         .font(.title)
         .navigationBarTitle("Counter demo")
         .sheet(isPresented: self.$isPrimeModalShown,
                onDismiss: { self.isPrimeModalShown = false }) {
-            isPrimeView(state: self.state)
+            IsPrimeView(state: self.state)
         }
     }
 

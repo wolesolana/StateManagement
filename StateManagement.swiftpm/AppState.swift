@@ -1,6 +1,7 @@
 import Combine
 
 class AppState: ObservableObject {
-    @Published var count = 0
+    @Published var number = 0
+    @Published var favoritePrimes: [Int] = []
 }
 
