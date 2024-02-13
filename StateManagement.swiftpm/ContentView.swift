@@ -9,7 +9,7 @@ struct ContentView: View {
                 NavigationLink(destination: CounterView(state: self.state)) {
                     Text("Counter demo")
                 }
-                NavigationLink(destination: EmptyView()) {
+                NavigationLink(destination: FavoritePrimesView(state: self.state)) {
                     Text("Favorite primes")
                 }
             }
