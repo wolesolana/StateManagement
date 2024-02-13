@@ -11,11 +11,11 @@ struct IsPrimeView: View {
                 if self.state.favoritePrimes.contains(self.state.number) {
                     Button(
                         action: { self.state.favoritePrimes.removeAll(
-                        where: { $0 == self.state.number })}) {
-                        Text("Remove from favorite primes")
-                    }
+                            where: { $0 == self.state.number })}) {
+                                Text("Remove from favorite primes")
+                            }
                 } else {
-                    Button(action: {      self.state.favoritePrimes.append(self.state.number) }) {
+                    Button(action: { self.state.favoritePrimes.append(self.state.number) }) {
                         Text("Save to favorite primes")
                     }
                 }

@@ -3,6 +3,7 @@ import SwiftUI
 struct CounterView: View {
     @ObservedObject var state: AppState
     @State var isPrimeModalShown: Bool = false
+    @State var alertNthPrime: PrimeAlert?
     
     var body: some View {
         VStack {
@@ -18,7 +19,10 @@ struct CounterView: View {
             Button(action: { self.isPrimeModalShown = true}) {
                 Text("Is this \(self.state.number) prime?")
             }
-            Button(action: {}) {
+            Button(action: {
+                let prime = nthPrime(self.state.number)
+                self.alertNthPrime = PrimeAlert(prime: prime)
+            }) {
                 Text("What is the \(ordinal(self.state.number)) prime?")
             }
         }
@@ -28,6 +32,12 @@ struct CounterView: View {
                onDismiss: { self.isPrimeModalShown = false }) {
             IsPrimeView(state: self.state)
         }
+               .alert(item: self.$alertNthPrime) { alert in
+                   Alert(
+                    title: Text("The \(ordinal(self.state.number)) prime is \(alert.prime)"),
+                    dismissButton: .default(Text("Ok"))
+                   )
+               }
     }
 
     private func ordinal(_ n: Int) -> String {

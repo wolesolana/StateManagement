@@ -31,3 +31,15 @@ extension Int {
         return true
     }
 }
+
+func nthPrime(_ n: Int) -> Int {
+    var primes: [Int] = []
+    var i = 2
+    while primes.count < n {
+        if i.isPrime {
+            primes.append(i)
+        }
+        i += 1
+    }
+    return primes.last!
+}
